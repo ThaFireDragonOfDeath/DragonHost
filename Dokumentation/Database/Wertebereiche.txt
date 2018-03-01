@@ -1,0 +1,28 @@
+Jobtypes
+1 = ADDUSER
+2 = DELUSER
+3 = CHPASS
+
+Jobstates:
+-1 = Noch nicht bearbeitet
+0 = Erfolgreich
+1 = Fehlgeschlagen
+
+Userstates:
+-1 = Noch nich eingerichtet
+0 = Erfolgreich Eingerichtet
+1 = Einrichtung fehlgeschlagen
+2 = User gelöscht
+
+SCRIPT_CONTEXT:
+0 = Frontend
+1 = Backend
+
+Key/Value Werte:
+REGISOPEN: true oder false
+DBSCHEMEVERSION = Ganzzahl >= 1
+
+Rückgabecodes:
+0 = Erfelgreich
+1 = Fehler! Es wurden aber noch keine Änderungen am System durchgeführt.
+2 = Fehler! Es wurden bereits eine oder mehrere Änderungen am System durchgeführt.

@@ -1,0 +1,13 @@
+Funktionen:
+Security::cryptopass()
+
+SystemInterface::addUser_database_db()
+SystemInterface::checkUserExists_database_db()
+SystemInterface::delUser_database_db()
+
+addUser_database_user
+checkUserExists_database_user
+delUser_database_user
+
+passwd
+

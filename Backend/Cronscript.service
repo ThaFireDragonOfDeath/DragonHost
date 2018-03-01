@@ -1,0 +1,11 @@
+#By Voldracarno Draconor (2017-2018)
+
+[Unit]
+Description=Dragonhost Cronscript starter
+After=httpd.service mariadb.service
+
+[Service]
+ExecStart=/usr/bin/cronscript.sh &
+ExecStop=touch /tmp/dragonhost/cronscript-run
+ExecReload=echo "Not supported!"
+Restart=always

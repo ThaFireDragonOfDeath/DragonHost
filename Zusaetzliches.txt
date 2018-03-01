@@ -1,0 +1,24 @@
+Aufteilung:
+Einleitung: Grisu
+Was ist Dragonhost: KSC Freak
+Bedienung: KSC Freak
+Technik: Grisu
+Stärken: Grisu
+Schwächen: KSC Freak
+
+Zusätzliches zu den Stichpunkten:
+
+Was ist Dragonhost:
+Automatische Bereinigung im Fehlerfall:
+- Geht beim Anlegen des Nutzers was schief, wird er automatisch wieder vom System getilgt
+
+Bedienung:
+Als Admin:
+- Wartungsmeldungen gibts beispielsweise, wenn die Automatische Bereinigung schief ging, da muss der Admin selbst Hand anlegen
+
+Als User:
+- Eigene Webseite ist Beispielsweise ein Wordpress Blog
+
+Schwächen:
+Im Moment noch Alphasoftware:
+- Bedeutet: Wahrscheinlich noch Fehler vorhanden, vom Produktivbetrieb wird stark abgeraten

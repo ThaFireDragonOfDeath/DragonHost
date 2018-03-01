@@ -1,0 +1,78 @@
+Server Projekt mit Raspberry Pi:
+
+Was haben wir vor:
+Ein Webspace Projekt aufziehen, in dem jeder Benutzer seine Dateien und/oder eine Webpräsens abspeichern kann. 
+Für jeden Nutzer steht PHP und eine MySQL Datenbank zur Verfügung. Das Passwort wird beim Erstellen des Accountes angegeben und gilt für FTP und MySQL.
+Die Registrierung geschieht über ein billo PHP Formular.
+
+Unterstützte Übertragungsprotokolle: FTP
+
+TODO Liste:
+- FTP hochziehen (ProFTPD)
+- Apache/PHP hochziehen und halbwegs sicher einstellen
+- MariaDB hochziehen und halbwegs sicher einstellen
+- Benötigte PHP Scripte schreiben
+- Homepage und Formulare schreiben
+
+Zu beachten:
+- Jeder Benutzer darf nur eine bestimmte Menge an Speicher für sich in Anspruch nehmen
+- Den PHP Safemode gibt es nicht mehr.
+
+Benötigte Server:
+>Server 1 (Apache, PHP, MariaDB, FTP, SSH):
+- Hauptserver, der RAM freut sich
+
+Benötigte Formulare:
+>Admin Formular (optional):
+- Verwaltung der User mitsammt Speicherplatz (Daten landen in der MySQL Datenbank)
+
+>Registrierungsformular:
+- Username, Passwort, Daten absenden
+
+Checks auf PHP Seite:
+- Existiert der User schon? (Lookup in der Datenbank, Tabellen user und jobs)
+- Halten sich Benutzername und Passwort an die Regeln? (Shell/SQL injections wären blöd, desshalb nur Buchstaben und Zahlen)
+
+Sichere Usererstellung:
+Formular --> PHP Script (useradd.php) --> User in interne Datenbank packen
+PHP Script jede Minute ausführen (pwh-jobmanager.php, wird als root ausgeführt, außerhalb des Webservers) --> Liest Job Infos aus der DB --> Führt das Useradd und die anderen Shell Befehle als root aus
+
+Job Programm:
+>Argumente:
+Keine
+
+Sicherheitsrichtlinien:
+- Um Himmels Willen: Die verdammten Exec Funktionen beim Apache-PHP abschalten
+- Diverse weitere Funktionen und Klassen sperren
+- SSH für die User abschalten (nur Drachen dürfen auf SSH)
+- Bash history abschalten
+
+Datenbankschema:
+Interne Datenbank: dh_internal
+user: jobmanager
+user: webfrontend
+tabelle: user
+tabelle: jobs
+
+Tabelle user:
+- VARCHAR: username (PK)
+- VARCHAR: password (Mit bcrypt oder ähnlichem verschlüsselt und gesalzen)
+- DATE: reg_date
+- INT: space
+
+Tabelle jobs:
+- INT: jobid (PK)
+- VARCHAR: jobtype
+
+Tabelle jobs-adduser:
+- INT: jobid (PK)
+- VARCHAR: username
+- VARCHAR: password (Klartext)
+- INT: space
+
+Wichtige Links:
+Datenbank erstellen per SH: https://wiki.ubuntuusers.de/MySQL/r#Datenbank-erstellen
+Speicher limitieren: http://linuxwiki.de/quota/F%C3%BCrVerzeichnis
+Bash history deaktivieren: https://wiki.ubuntuusers.de/Bash/#Deaktivierung
+Ausführung von Scripten über PHP: http://php.net/manual/de/function.exec.php
+Virtual Host:

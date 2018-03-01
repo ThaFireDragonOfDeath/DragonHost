@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <title>Der kosternlose Hosting Provider</title>
+        <!--<link href="index.css" rel="stylesheet" type="text/css"/>!-->
+        <link rel="icon" href="./icon.jpg" type="image/x-icon">
+    </head>
+    <body>
+        <div class="inhalt">
+            <div id="ueberschrift">
+                <h2>
+                    <b>
+                        DRAGON HOST - Der kostenlose Hosting Provider für Deine ganz persönliche Homepage! 
+                    </b>
+                </h2>
+            </div>
+            <div class="text">
+                <article>   
+                    <p>
+                        Willkommen bei Dragon Host.
+                        Bei uns bekommst du einfach, schnell und kostenlos großzügigen Webspace 
+                        ohne stöhrende Limitierungen und ohne unnötigen Schnick Schnack.
+                        Egal ob für private Webseiten und Blogs oder für umfangreiche und anspruchsvolle Projekte.
+                        Bei uns ist Ihre Webseite gut aufgehoben.
+                    </p>
+                </article>
+                <aside>
+                    <div id="vorteil">
+                        <h3>Was du bekommst:</h3>
+                        <p>
+                            <ul>
+                                <li>PHP 7</li>
+                                <li>1 GB Webspace</li>
+                                <li>Unendlich Traffic</li>
+                                <li>Einen FTP Account</li>
+                                <li>Eine MySQL Datenbank</li>
+                                <li>Sockets und eine Subdomain</li>
+                                <li>Kein Filesizelimit</li>
+                            </ul>
+                        </p>
+                    </div>
+                </aside>
+            </div>
+            <div id="anmeldung">
+                <h3>Accountverwaltung:</h3>
+                <p>Hinweise bezüglich Benutzername und Passwort:</p>
+                <ul>
+                    <li>Der Benutzername muss mindestens 3 und darf maximal 30 Zeichen lang sein</li>
+                    <li>Der Benutzername darf nur aus kleinen Buchstaben (ohne Umlaute) und Zahlen bestehen</li>
+                    <li>Das Passwort muss mindestens 7 und darf maximal 64 Zeichen lang sein</li>
+                    <li>Das Passwort darf nur aus kleinen/großen Buchstaben (ohne Umlaute) und Zahlen bestehen</li>
+                </ul>
+                <form method="post" action="account.php">
+                    <label for="user">Benutzername</label>
+                    <input placeholder="Benutzer eingeben" type="text" name="user" maxlength="30"><br />
+                    <label for="pwd">Passwort</label>                           
+                    <input placeholder="Passwort eingeben" type="password" name="pwd" maxlength="64"><br />
+                    <select name="accaction">
+                        <option value="createAcc">Account anlegen</option>
+                        <option value="deleteAcc">Account löschen</option>
+                    </select><br /><br />
+                    <input type="submit">Absenden</input>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
