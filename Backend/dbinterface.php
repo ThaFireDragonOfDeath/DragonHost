@@ -50,8 +50,21 @@
         public function addJob(int $iJobType, string $sUserName, string $sPassword) {
             //TODO
             $iUserId = $this->getUserId($sUserName);
-            $sSqlQuery1 = "INSERT INTO jobs (jobtype, jobstate) VALUES (:jobtype, -1)";
+            $sPasswordEnc = Security::cryptopass($sPassword, Security::ENCRYPT);
             
+            $sSqlQuery1 = "INSERT INTO jobs (jobtype, jobstate) VALUES (:jobtype, -1)";
+            $sSqlQuery2 = "INSERT INTO jobs_user (jobid, userid, password_enc) VALUES (LAST_INSERT_ID(), :userid, :password_enc)";
+            
+            $slSqlParameters1 = array(
+                ':jobtype' => $iJobType,
+            ):
+            $slSqlParameters2 = array(
+                ':useid' => $iUserId,
+                ':password_enc' => $sPasswordEnc,
+            );
+            
+            $this->doSqlQuery($sSqlQuery1, $slSqlParameters1);
+            $this->doSqlQuery($sSqlQuery2, $slSqlParameters2);
         }
         
         public function addUser(string $sUserName, string $sPasswordHash, int $iUserSpace = 500) {

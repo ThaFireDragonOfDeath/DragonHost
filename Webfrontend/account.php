@@ -26,6 +26,7 @@
                 
                 if ($iCurrentUsers <= ProjectConfigs::user_limit) {
                     $objDbInterface->addUser($sUsername, $sPasswordHash, ProjectConfigs::user_space);
+                    $objDbInterface->addJob(DbInterface::ADDUSER, $sUsername, $sPassword);
                 } else {
                     echo "Es sind keine Slots mehr frei!";
                 }

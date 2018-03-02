@@ -13,11 +13,12 @@
         const db_host = 'localhost';
         const db_user = 'dh_internal';
         const db_root_user = 'root';
-        const db_root_password = '';
-        const db_password = '';
-        const db_dbname = 'demo';
+        const db_root_password = 'testrootpassword-123';
+        const db_password = 'testnormalpassword-123';
+        const db_dbname = 'dh_users';
         
         //Pass access data
+        //Change before running the project
         const pass_key = 'WpbXnKbfvrMta55WTQjYyztKb22fecuagFHcYFzQnD8bK5bHRR8XynFPsG4AzezU';
         const pass_iv = 'kt5YEhjo6KCQ6DV9nEp9wPtZ6HLut7hdVwK6hVdHDfVZ9pxtVEKM92ADEdbhihnZ';
         

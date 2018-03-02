@@ -69,7 +69,7 @@
         public function createNewDatabaseUser(string $sUserName, string $sUserPass, string $sLinkedDatabase): bool {
             $sDbHost = ProjectConfigs::db_host;
             $sSqlQuery1 = "CREATE USER ${sUserName} IDENTIFIED BY '${sUserPass}';";
-            $sSqlQuery2 = "GRANT ALL ON ${sLinkedDatabase}.* TO ${sUserName}@${sDbHost};";
+            $sSqlQuery2 = "GRANT ALL PRIVILEGES ON ${sLinkedDatabase}.* TO ${sUserName}@${sDbHost};";
             $sSqlQuery3 = "FLUSH privileges;";
             return $this->doSqlQuery($sSqlQuery1.$sSqlQuery2.$sSqlQuery3);
         }
