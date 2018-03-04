@@ -1,0 +1,26 @@
+Hardware
+Minimum:
+Dual Core CPU mit 1,0 GHz/s oder höher
+1 GB RAM oder höher
+16 GB oder mehr an freien Speicherplatz
+
+Empfohlen:
+Quad Core CPU mit 1,4 GHz/s oder höher
+2 GB RAM oder höher
+64 GB oder mehr an freien Speicherplatz
+
+Software
+Betriebssystem: GNU/Linux
+Distribuion: Debian 9
+Benötigte Programme: apache, bash, php, quota, vsftpd
+Benötigte Shellbefehle: a2disconf, a2enconf, cat, chpasswd, cut, echo, grep, setquota, useradd, userdel
+Benötigte User: dh_admin, dh_frontend
+Benötigte Gruppen: webspace_user, webspace_user_admin, webspace_framework, webspace_frontend
+
+Apache Module:
+Zusätzlich benötigte Apache Module: mpm-itk, php
+Die Grundmodule sind im Paket apache2-bin
+
+PHP Module
+Benötigte PHP Module: cli, common, curl, json, mbstring, mysql, opcache, readline
+Empfohlen: bcmath, bz2, gd, intl, mcrypt, tidy, xml, zip

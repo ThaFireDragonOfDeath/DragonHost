@@ -1,7 +1,7 @@
 #!/bin/bash
 #By Voldracarno Draconor (2017-2018)
 
-runfile="/tmp/dragonhost/cronscript-run"
+runfile="/tmp/dragonhost/dh-cronscript-run"
 crontime_jobmanager = 60
 
 if [ -f $runfile ]
@@ -17,6 +17,6 @@ do
     if [ $counter_jobmanager -eq 0 ]
         then
             $counter_jobmanager = $crontime_jobmanager
-            #php script here
+            php -c /srv/dragonhost/config/php/cli/php.ini -f /srv/dragonhost/framework/jobmanager.php
     fi
 done

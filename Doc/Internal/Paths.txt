@@ -1,0 +1,28 @@
+Frontend Webseite:
+/srv/dragonhost/frontend/www/*
+/644/644/400/600/600
+/root/root/dh_admin/*
+/root/root/webspace_framework/*
+
+User Webseiten
+/srv/dragonhost/users/username/www/*
+/644/644/644/460/660/660
+/root/root/root/username/*
+/root/root/root/webspace_user/*
+
+MariaDB
+/srv/dragonhost/database/*
+/644/644/600/600
+/root/root/mysql/*
+
+Dragonhost PHP Framework
+/srv/dragonhost/framework/*
+/644/644/660/660
+/root/root/dh_admin/*
+/root/root/webspace_framework/*
+
+Dragonhost Configs
+/srv/dragonhost/config/*
+/644/644/660/660
+/root/root/dh_admin/*
+/root/root/webspace_framework/*

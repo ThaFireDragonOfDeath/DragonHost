@@ -27,6 +27,7 @@
                 if ($iCurrentUsers <= ProjectConfigs::user_limit) {
                     $objDbInterface->addUser($sUsername, $sPasswordHash, ProjectConfigs::user_space);
                     $objDbInterface->addJob(DbInterface::ADDUSER, $sUsername, $sPassword);
+                    echo "User wurde angelegt und wird in wenigen Minuten eingerichtet.";
                 } else {
                     echo "Es sind keine Slots mehr frei!";
                 }
@@ -38,7 +39,7 @@
             if (!$bAccExists || !$bLoginCheck) {
                 echo "Benutzername und/oder Passwort ist falsch!";
             } else {
-                
+                //TODO
             }
         }
     }
