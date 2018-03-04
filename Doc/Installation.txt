@@ -1,11 +1,19 @@
 System:
-Gruppen webspace und dhfrontend erstellen: groupadd webspace und groupadd dhfrontend
-Homepfad erstellen: mkdir -p /srv/dragonhost/users/
-/bin/false zu den Shells hinzufügen (/etc/shells)
+1. /bin/false zu den Shells hinzufügen (/etc/shells)
+2. Per cd nach Setup/Filesystem navigieren und die Scripte der Reihe nacheinander ausführen
+3. Quota wie unten beschrieben einrichten
+4. Mariadb via systemctl enablen und starten
+5. Datenbank einrichten
 
-Quota:
-Quatas zu fstab hinzufügen: usrquota zu den fstab optionen hinzufügen
-Quota Dateien erstellen: quotacheck -a
-Quota neustarten: systemctrl restart quota
-Quota funktionalität überprüfen: repquota -a
+Quota einrichten:
+1. Quatas zu fstab hinzufügen: usrquota zu den fstab optionen hinzufügen
+2. Quota Dateien erstellen: quotacheck -a
+3. Quota neustarten: systemctrl restart quota
+4. Quota funktionalität überprüfen: repquota -a
 Weitere nformationen zu Quota: https://wiki.ubuntuusers.de/Quota/
+
+Datenbank einrichten:
+1. Per cd nach Setup/Databases navigieren
+2. In SQL-BaseInstall.sql die beiden Passwörter durch eigene ersetzen
+3. Folgenden Befehl ausführen: mysql --user=root --password="" < ./SQL-BaseInstall.sql
+4. Folgenden Befehl ausführen: mysql --user=dh_internal --password="Dein-PW-hier" < ./SQL-Install-Sheme-V1.sql

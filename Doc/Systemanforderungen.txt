@@ -14,8 +14,8 @@ Betriebssystem: GNU/Linux
 Distribuion: Debian 9
 Benötigte Programme: apache, bash, php, quota, vsftpd
 Benötigte Shellbefehle: a2disconf, a2enconf, cat, chpasswd, cut, echo, grep, setquota, useradd, userdel
-Benötigte User: dh_admin, dh_frontend
-Benötigte Gruppen: webspace_user, webspace_user_admin, webspace_framework, webspace_frontend
+Benötigte User: dh_admin
+Benötigte Gruppen: webspace_user, webspace_framework
 
 Apache Module:
 Zusätzlich benötigte Apache Module: mpm-itk, php

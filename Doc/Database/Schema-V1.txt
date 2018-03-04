@@ -33,14 +33,14 @@ varchar(256): password_hash
 uint: userspace
 int: userstate
 
-databases:
+dh_databases:
 varchar(64): database_name (PK)
 uint: userid (FK)
 int: dbstate
 
 kvconfigs:
-varchar(64): key (PK)
-varchar(64): value
+varchar(64): kv_key (PK)
+varchar(64): kv_value
 
 Benutzer:
 root: Zum erstellen des Db Schemas, Anlegen neuer Benutzer

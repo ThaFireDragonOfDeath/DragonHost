@@ -5,7 +5,7 @@
     require_once 'projectconfigs.php';
 
     class DbRootInterface extends DbInterface {
-        function __construct0() {
+        function __construct() {
             try {
                 $this->objSqlBackend = new SqlBackend(ProjectConfigs::db_host, ProjectConfigs::db_root_user, ProjectConfigs::db_root_password, ProjectConfigs::db_dbname);
             } catch(PDOException $ex) {
@@ -68,7 +68,7 @@
         
         public function createNewDatabaseUser(string $sUserName, string $sUserPass, string $sLinkedDatabase): bool {
             $sDbHost = ProjectConfigs::db_host;
-            $sSqlQuery1 = "CREATE USER ${sUserName} IDENTIFIED BY '${sUserPass}';";
+            $sSqlQuery1 = "CREATE USER ${sUserName}@${sDbHost} IDENTIFIED BY '${sUserPass}';";
             $sSqlQuery2 = "GRANT ALL PRIVILEGES ON ${sLinkedDatabase}.* TO ${sUserName}@${sDbHost};";
             $sSqlQuery3 = "FLUSH privileges;";
             return $this->doSqlQuery($sSqlQuery1.$sSqlQuery2.$sSqlQuery3);

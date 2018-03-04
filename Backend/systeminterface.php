@@ -98,13 +98,12 @@
             Logger::debugmsg('Begin addUser_passwd()');
         
             //Add user to system
-            //TODO: Check useradd commend and path
 
             $slShellCommands = array(
                 0 => "useradd -d /srv/dragonhost/users/${sUserName} -g webspace_user -m -s /bin/false ${sUserName}",
                 1 => "echo \"${sUserName}:${sUserPass}\" | chpasswd",
                 2 => "mkdir /srv/dragonhost/users/${sUserName}/www",
-                3 => "chmod -R 600 /srv/dragonhost/users/${sUserName}",
+                3 => "chmod -R 660 /srv/dragonhost/users/${sUserName}",
             );
             
             foreach($slShellCommands as $sCurrentCommand) {

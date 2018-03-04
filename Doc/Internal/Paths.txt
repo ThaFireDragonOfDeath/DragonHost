@@ -6,7 +6,7 @@ Frontend Webseite:
 
 User Webseiten
 /srv/dragonhost/users/username/www/*
-/644/644/644/460/660/660
+/644/644/644/660/660/660
 /root/root/root/username/*
 /root/root/root/webspace_user/*
 
