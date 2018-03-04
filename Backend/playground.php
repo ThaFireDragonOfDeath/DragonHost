@@ -2,9 +2,10 @@
     require_once 'projectconfigs.php';
     require_once 'systeminterface.php';
     require_once 'inc_backend.php';
+    require_once 'dbinterface.php';
     
-    
-    $objSysIf = new SystemInterface;
+    //$objSysIf = new SystemInterface;
+    $objDbInterface = new DbInterface;
     //$bCreateUserSuccess = $objSysIf->addUser_database_db('dh_internal');
     
     //$bCreateUserSuccess = $objSysIf->checkUserExists_database_db('dh_internal');
@@ -19,6 +20,17 @@
     //$bCreateUserSuccess = $objSysIf->checkUserExists_database_user("dh_internal");
     //$bCreateUserSuccess = $objSysIf->delUser_database_user("dh_internal");
     
+    //$objDbInterface->addUser("testuser1", "h123456789");
     
-    Logger::debugmsg("Result: ${bCreateUserSuccess}");
+    //$bCreateUserSuccess = $objDbInterface->checkuserlogin("testuser1", "h123456789");
+    //$bCreateUserSuccess = $objDbInterface->checkuserlogin("testuser1", "h1234569");
+    
+    //$bCreateUserSuccess = $objDbInterface->getUserExists("testuser1");
+    //$bCreateUserSuccess = $objDbInterface->getUserExists("testuser");
+    
+    //$bCreateUserSuccess = $objDbInterface->getUserId("testuser1");
+    
+    //$objDbInterface->addJob(1, "testuser1", "h123456789");
+    
+    //Logger::debugmsg("Result: ${bCreateUserSuccess}");
 ?>

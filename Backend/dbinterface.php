@@ -4,6 +4,7 @@
     require_once 'logger.php';
     require_once 'projectconfigs.php';
     require_once 'sqlbackend.php';
+    require_once 'security.php';
 
     class DbInterface {
         const ADDUSER = 1;
@@ -48,7 +49,6 @@
 //         }
         
         public function addJob(int $iJobType, string $sUserName, string $sPassword) {
-            //TODO
             $iUserId = $this->getUserId($sUserName);
             $sPasswordEnc = Security::cryptopass($sPassword, Security::ENCRYPT);
             
@@ -57,9 +57,9 @@
             
             $slSqlParameters1 = array(
                 ':jobtype' => $iJobType,
-            ):
+            );
             $slSqlParameters2 = array(
-                ':useid' => $iUserId,
+                ':userid' => $iUserId,
                 ':password_enc' => $sPasswordEnc,
             );
             
@@ -67,7 +67,8 @@
             $this->doSqlQuery($sSqlQuery2, $slSqlParameters2);
         }
         
-        public function addUser(string $sUserName, string $sPasswordHash, int $iUserSpace = 500) {
+        public function addUser(string $sUserName, string $sPassword, int $iUserSpace = 500) {
+            $sPasswordHash = Security::hashpw($sPassword);
             $sSqlQuery = "INSERT INTO users (username, password_hash, userspace, userstate) VALUES (:usrname, :pwhash, :usrspace, -1)";
             $slSqlParameters = array(
                 ':usrname' => $sUserName,

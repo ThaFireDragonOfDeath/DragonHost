@@ -21,11 +21,10 @@
             if ($bAccExists) {
                 echo "Der Benutzername ist bereits vergeben";
             } else {
-                $sPasswordHash = Security::hashpw($sPassword);
                 $iCurrentUsers = $objDbInterface->countUsers();
                 
                 if ($iCurrentUsers <= ProjectConfigs::user_limit) {
-                    $objDbInterface->addUser($sUsername, $sPasswordHash, ProjectConfigs::user_space);
+                    $objDbInterface->addUser($sUsername, $sPassword, ProjectConfigs::user_space);
                     $objDbInterface->addJob(DbInterface::ADDUSER, $sUsername, $sPassword);
                     echo "User wurde angelegt und wird in wenigen Minuten eingerichtet.";
                 } else {

@@ -11,3 +11,8 @@ delUser_database_user
 
 passwd
 
+DbInterface::adduser
+DbInterface::checkuserlogin
+DbInterface::getUserExists
+DbInterface::getUserId
+DbInterface::addJob
