@@ -13,7 +13,7 @@ cp -f ../../Backend/sqlbackend.php /srv/dragonhost/framework
 cp -f ../../Backend/systeminterface.php /srv/dragonhost/framework
 
 # Copy service files
-cp -f ../../Backend/Dh_Cronscript.service /usr/lib/systemd/system
+cp -f ../../Backend/Dh_Cronscript.service /lib/systemd/system
 cp -f ../../Backend/dh_cronscript.sh /usr/bin
 
 # Copy config files

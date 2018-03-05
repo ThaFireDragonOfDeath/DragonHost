@@ -5,8 +5,13 @@ Description=Dragonhost Cronscript starter
 After=httpd.service mariadb.service
 
 [Service]
-ExecStart=/usr/bin/dh_cronscript.sh &
-ExecStop=touch /tmp/dragonhost/dh-cronscript-run
-ExecReload=echo "Not supported!"
-Restart=always
+Type=simple
+ExecStart=/bin/bash /usr/bin/dh_cronscript.sh
+ExecStop=/bin/touch /tmp/dh-cronscript-run
+ExecReload=/bin/echo "Not supported!"
 TimeoutSec=120
+PIDFile=/tmp/Dh_Cronscript.pid
+KillMode=none
+
+[Install]
+WantedBy=multi-user.target

@@ -17,6 +17,11 @@ Benötigte Shellbefehle: a2disconf, a2enconf, cat, chpasswd, cut, echo, grep, se
 Benötigte User: dh_admin
 Benötigte Gruppen: webspace_user, webspace_framework
 
+Achtung:
+Das Dateisystem der Partition, wo das /srv Verzeichnis liegt, muss ext2, ext3 oder ext4 sein
+XFS kann man mit Abweichungen bei der Quota Konfiguration ebenfalls verwenden
+BTRFS ist hingegen lässt sich nicht in Verbindung mit DragonHost verwenden
+
 Apache Module:
 Zusätzlich benötigte Apache Module: mpm-itk, php
 Die Grundmodule sind im Paket apache2-bin

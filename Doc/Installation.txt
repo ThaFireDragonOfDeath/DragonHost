@@ -1,21 +1,23 @@
 System:
-1. /bin/false zu den Shells hinzufügen (/etc/shells)
-2. Per cd nach Setup/Filesystem navigieren und die Scripte der Reihe nacheinander ausführen
-3. Quota wie unten beschrieben einrichten
-4. Mariadb via systemctl enablen und starten
-5. Datenbank wie unten beschrieben einrichten
-6. DH Cronservice enablen und starten: systemctl enable/start Dh_Cronscript
-7. Apache service enablen und starten
+1. Benötigte Programme installieren (siehe Systemanforderungen)
+2. /bin/false zu den Shells hinzufügen (/etc/shells)
+3. Per cd nach Setup/Filesystem navigieren und die Scripte als root der Reihe nacheinander ausführen (ggf vorher ausführbar machen)
+4. Quota wie unten beschrieben einrichten
+5. Datenbank anlegen: mysql_install_db --user=mysql --basedir=/usr --datadir=/srv/dragonhost/database
+6. Mariadb via systemctl enablen und starten
+7. Datenbank wie unten beschrieben einrichten
+8. DH Cronservice enablen und starten: systemctl enable/start Dh_Cronscript
+9. Apache service enablen und starten
 
 Quota einrichten:
-1. Quatas zu fstab hinzufügen: usrquota zu den fstab optionen hinzufügen
+1. Quatas zu fstab hinzufügen: usrquota zu den fstab optionen der Partition, wo /srv liegt, hinzufügen und anschließend das System neu starten
 2. Quota Dateien erstellen: quotacheck -a
-3. Quota neustarten: systemctrl restart quota
+3. Quota neustarten: systemctl restart quota
 4. Quota funktionalität überprüfen: repquota -a
-Weitere nformationen zu Quota: https://wiki.ubuntuusers.de/Quota/
+Weitere Informationen zu Quota: https://wiki.ubuntuusers.de/Quota/
 
 Datenbank einrichten:
 1. Per cd nach Setup/Databases navigieren
 2. In SQL-BaseInstall.sql die beiden Passwörter durch eigene ersetzen
-3. Folgenden Befehl ausführen: mysql --user=root --password="Root PW hier" < ./SQL-BaseInstall.sql
-4. Folgenden Befehl ausführen: mysql --user=dh_internal --password="Dein-PW-hier" < ./SQL-Install-Sheme-V1.sql
+3. Folgenden Befehl ausführen: mysql --user=root --password="" < ./SQL-BaseInstall.sql
+4. Folgenden Befehl ausführen: mysql --user=dh_internal --password="PW von SQL-BaseInstall hier" dh_users < ./SQL-Install-Sheme-V1.sql
