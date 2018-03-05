@@ -24,7 +24,7 @@
         
         //Site configurations
         const user_limit = 5;
-        const user_space = 500;
+        const user_space = 1000;
         const software_version = 0.1;
         const admin_username = 'dh_admin';
         const minimum_username_lenght = 3;
