@@ -15,3 +15,6 @@ chown -R dh_admin:webspace_framework /srv/dragonhost/framework
 
 chmod -R 770 /srv/dragonhost/config
 chown -R dh_admin:webspace_framework /srv/dragonhost/config
+
+chmod 755 /usr/bin/dh_cronscript.sh
+chown root:root /usr/bin/dh_cronscript.sh

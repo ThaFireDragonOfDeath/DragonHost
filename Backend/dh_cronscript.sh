@@ -17,6 +17,6 @@ do
     if [ "$counter_jobmanager" -eq 0 ]
         then
             counter_jobmanager=$crontime_jobmanager
-            php -c /srv/dragonhost/config/php/cli/php.ini -f /srv/dragonhost/framework/jobmanager.php
+            php -c /srv/dragonhost/config/php/cli/php.ini -f /srv/dragonhost/framework/jobmanager_main.php
     fi
 done
