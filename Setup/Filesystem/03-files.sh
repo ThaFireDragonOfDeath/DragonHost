@@ -5,6 +5,7 @@ cp -f ../../Backend/dbinterface.php /srv/dragonhost/framework
 cp -f ../../Backend/dbrootinterface.php /srv/dragonhost/framework
 cp -f ../../Backend/inc_backend.php /srv/dragonhost/framework
 cp -f ../../Backend/inc_frontend.php /srv/dragonhost/framework
+cp -f ../../Backend/jobmanager_main.php /srv/dragonhost/framework
 cp -f ../../Backend/jobmanager.php /srv/dragonhost/framework
 cp -f ../../Backend/logger.php /srv/dragonhost/framework
 cp -f ../../Backend/projectconfigs.php /srv/dragonhost/framework
