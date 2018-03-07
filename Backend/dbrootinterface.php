@@ -38,16 +38,13 @@
         }
         
         public function checkuserexist(string $sUserName): bool {
-            $sSqlCommand = "SELECT DISTINCT User FROM mysql.user WHERE User = :sUserName;";
-            $slParameters = array(
-                ':sUserName' => $sUserName
-            );
+            $sSqlCommand = "SELECT DISTINCT User FROM mysql.user WHERE User = '${sUserName}';";
             
             $iMatchesFound = -1;
             
             //Count matches in the database
             try {
-                $iMatchesFound = $this->objSqlBackend->countRows($sSqlCommand, $slParameters);
+                $iMatchesFound = $this->objSqlBackend->countRows($sSqlCommand);
             } catch(PDOException $ex) {
                 throw $ex;
             }
@@ -68,8 +65,8 @@
         
         public function createNewDatabaseUser(string $sUserName, string $sUserPass, string $sLinkedDatabase): bool {
             $sDbHost = ProjectConfigs::db_host;
-            $sSqlQuery1 = "CREATE USER ${sUserName}@${sDbHost} IDENTIFIED BY '${sUserPass}';";
-            $sSqlQuery2 = "GRANT ALL PRIVILEGES ON ${sLinkedDatabase}.* TO ${sUserName}@${sDbHost};";
+            $sSqlQuery1 = "CREATE USER '${sUserName}'@'${sDbHost}' IDENTIFIED BY '${sUserPass}';";
+            $sSqlQuery2 = "GRANT ALL PRIVILEGES ON ${sLinkedDatabase}.* TO '${sUserName}'@'${sDbHost}';";
             $sSqlQuery3 = "FLUSH privileges;";
             return $this->doSqlQuery($sSqlQuery1.$sSqlQuery2.$sSqlQuery3);
         }
@@ -80,8 +77,8 @@
             return $this->doSqlQuery($sSqlCommand);
         }
         
-        public function deletedbuser(string $sDbUserName): bool {
-            $sSqlCommand = "DROP USER ${sDbUserName};";
+        public function deletedbuser(string $sDbUserName, string $sDbHost): bool {
+            $sSqlCommand = "DROP USER '${sDbUserName}'@'${sDbHost}';";
             
             return $this->doSqlQuery($sSqlCommand);
         }

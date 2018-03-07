@@ -4,10 +4,11 @@ System:
 3. Per cd nach Setup/Filesystem navigieren und die Scripte als root der Reihe nacheinander ausführen (ggf vorher ausführbar machen)
 4. Quota wie unten beschrieben einrichten
 5. Datenbank anlegen: mysql_install_db --user=mysql --basedir=/usr --datadir=/srv/dragonhost/database
+6. Projekteinstellungen durch bearbeiten der folgenden Datei setzen: /srv/dragonhost/framework/projectconfigs.php
 6. Mariadb via systemctl enablen und starten
 7. Datenbank wie unten beschrieben einrichten
 8. DH Cronservice enablen und starten: systemctl enable/start Dh_Cronscript
-9. Apache service enablen und starten
+9. Apache service enablen und starten: systemctl enable/start apache2
 
 Quota einrichten:
 1. Quatas zu fstab hinzufügen: usrquota zu den fstab optionen der Partition, wo /srv liegt, hinzufügen und anschließend das System neu starten

@@ -79,7 +79,7 @@
         }
         
         public function addMaintanaceEntry(int $iJobId, string $sMaintMessage) {
-            $sSqlQuery = "INSERT INTO maintanance (jobid, maint_state, maint_message) VALUES (:jobid, -1, :maintmsg)";
+            $sSqlQuery = "INSERT INTO maintenance (jobid, maint_state, maint_message) VALUES (:jobid, -1, :maintmsg)";
             $slSqlParameters = array(
                 ':jobid' => $iJobId,
                 ':maintmsg' => $sMaintMessage,
@@ -111,8 +111,6 @@
                 return $this->objSqlBackend->countRows($sSqlQuery, $slBindings);
             }
             catch(PDOException $ex) {
-                $sExMessage = $ex->getMessage();
-                Logger::debugmsg("SQL Exception: ${sExMessage}");
                 return 0;
             }
         }
@@ -127,8 +125,6 @@
                 $this->objSqlBackend->sqlExec($sSqlQuery, $slBindings);
             }
             catch(PDOException $ex) {
-                $sExMessage = $ex->getMessage();
-                Logger::debugmsg("SQL Exception: ${sExMessage}");
                 return false;
             }
             
@@ -150,7 +146,7 @@
         }
         
         public function getUserExists(string $sUserName) {
-            $sSqlQuery = "SELECT username FROM users WHERE username = :username";
+            $sSqlQuery = "SELECT username FROM users WHERE username = :username;";
             $slSqlParameters = array(
                 ':username' => $sUserName,
             );
@@ -198,6 +194,7 @@
         public function setJobState(int $iJobId, int $iState, string $sStateMessage) {
             Logger::debugmsg('Begin setJobState()');
             
+            //TODO Repair this SQL statement
             $sSqlQuery = "UPDATE jobs SET password_enc = '',jobstate = :jobstate,jobmessage = :statemsg WHERE jobid = :jobid;";
             $slSqlParameters = array(
                 ':jobstate' => $iState,

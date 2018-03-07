@@ -124,6 +124,8 @@
         }
 
         public function checkUserExists_config_apache($sUserName) {
+	    Logger::debugmsg('Begin checkUserExists_config_apache()');
+
             $sSaveConfigFileName = "${sUserName}_config.conf";
             $sSaveConfigFilePath = ProjectConfigs::apache_config_path."/${sSaveConfigFileName}";
             $bUserExist = is_readable($sSaveConfigFilePath);
@@ -132,7 +134,9 @@
         }
         
         public function checkUserExists_config_apache_enable($sUserName) {
-            $sSaveConfigFileName = "${sUserName}_config.conf";
+	    Logger::debugmsg('Begin checkUserExists_config_apache_enable()');
+
+	    $sSaveConfigFileName = "${sUserName}_config.conf";
             $sSaveConfigFilePath = ProjectConfigs::apache_enabled_config_path."/${sSaveConfigFileName}";
             $bUserExist = is_readable($sSaveConfigFilePath);
             
@@ -182,6 +186,8 @@
         }
         
         public function checkUserExists_quotas($sUserName): bool {
+	    Logger::debugmsg('Begin checkUserExists_quotas()');
+
             $iCurrentUserLimit = $this->getQuotaSpaceLimit($sUserName);
             
             if ($iCurrentUserLimit <= 0) {
@@ -193,7 +199,7 @@
         }
         
         public function getQuotaSpaceLimit($sUserName): int {
-            return $this->getQuotaInfo(self::QUOTA_HARD_LIMIT);
+            return $this->getQuotaInfo($sUserName, self::QUOTA_HARD_LIMIT);
         }
         
         public function delUser_config_apache($sUserName): bool {
@@ -264,12 +270,11 @@
             $iShellReturn = -1;
             exec($sShellCommand1, $slOutputs, $iShellReturn);
             
-            $sGrepOutput = $slOutputs[0];
-            
-            if ($sGrepOutput === "") {
+            if (count($slOutputs) === 0) {
                 return -1;
             }
             else {
+		$sGrepOutput = $slOutputs[0];
                 $sShellCommand2 = "echo \"${sGrepOutput}\" | cut -d, -f${iQuotaInfo}";
                 unset($slOutputs);
                 $iShellReturn = -1;

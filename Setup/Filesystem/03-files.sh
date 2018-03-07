@@ -22,6 +22,7 @@ cp -f ../../Config/apache/frontendsite.conf /etc/apache2/sites-available/000-def
 cp -f ../../Config/apache/apache2.conf /etc/apache2
 cp -f ../../Config/ftp/vsftpd.conf /etc
 cp -f ../../Config/mariadb/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+cp -f ../../Config/apache/usersite_template.conf /srv/dragonhost/config/apache
 cp -fr ../../Config/php /srv/dragonhost/config
 
 # Copy frontend site files

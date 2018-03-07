@@ -51,55 +51,68 @@
             $bUser_HaveApacheConfig = $this->objSystemInterface->checkUserExists_config_apache($sUserName);
             $bUser_HaveApacheEnabled = $this->objSystemInterface->checkUserExists_config_apache_enable($sUserName);
             $bUser_HaveQuota = $this->objSystemInterface->checkUserExists_quotas($sUserName);
+
+	    Logger::debugmsg("bUserNameCheck: $bUserNameCheck");
+	    Logger::debugmsg("bUserPassCheck: $bUserPassCheck");
+	    Logger::debugmsg("bUserSpaceCheck: $bUserSpaceCheck");
+	    Logger::debugmsg("bUserNameAlreadyExist: $bUserNameAlreadyExist");
+	    Logger::debugmsg("bUser_HaveDB: $bUser_HaveDB");
+	    Logger::debugmsg("bUser_HaveDBUser: $bUser_HaveDBUser");
+	    Logger::debugmsg("bUser_HaveApacheConfig: $bUser_HaveApacheConfig");
+	    Logger::debugmsg("bUser_HaveApacheEnabled: $bUser_HaveApacheEnabled");
+	    Logger::debugmsg("bUser_HaveQuota: $bUser_HaveQuota");
             
             //Adds the user, if the Parameters are valid
-            if($bUserNameCheck && $bUserPassCheck && $bUserSpaceCheck && !$bUserNameAlreadyExist && !$bUser_HaveDB && !$bUser_HaveDBUser) {
+            if($bUserNameCheck && $bUserPassCheck && $bUserSpaceCheck 
+	       	&& !$bUserNameAlreadyExist && !$bUser_HaveDB && !$bUser_HaveDBUser 
+	       	&& !$bUser_HaveApacheConfig && !$bUser_HaveApacheEnabled && !$bUser_HaveQuota) {
+
                 //Add user to system
                 $bSucces = $this->objSystemInterface->addUser_passwd($sUserName, $sUserPass);
                 if($bSucces != true) {
-                    $this->addUser_cleanAF(self::PASSWD, $sUserName);
+                    $this->addUser_cleanAF(self::PASSWD, $sUserName, $iJobId);
                     return false;
                 }
                 
                 //Add database
                 $bSucces = $this->objSystemInterface->addUser_database_db($sUserName);
                 if($bSucces != true) {
-                    $this->addUser_cleanAF(self::DATABASE_DB, $sUserName);
+                    $this->addUser_cleanAF(self::DATABASE_DB, $sUserName, $iJobId);
                     return false;
                 }
                 
                 //Add database user
                 $bSucces = $this->objSystemInterface->addUser_database_user($sUserName, $sUserPass);
                 if($bSucces != true) {
-                    $this->addUser_cleanAF(self::DATABASE_USER, $sUserName);
+                    $this->addUser_cleanAF(self::DATABASE_USER, $sUserName, $iJobId);
                     return false;
                 }
                 
                 //Add Apache config
                 $bSucces = $this->objSystemInterface->addUser_config_apache($sUserName);
                 if($bSucces != true) {
-                    $this->addUser_cleanAF(self::APACHE_CONFIG, $sUserName);
+                    $this->addUser_cleanAF(self::APACHE_CONFIG, $sUserName, $iJobId);
                     return false;
                 }
                 
                 //Enable Apache config
                 $bSucces = $this->objSystemInterface->addUser_config_apache_enable($sUserName);
                 if($bSucces != true) {
-                    $this->addUser_cleanAF(self::APACHE_CONFIG_ENABLE, $sUserName);
+                    $this->addUser_cleanAF(self::APACHE_CONFIG_ENABLE, $sUserName, $iJobId);
                     return false;
                 }
                 
                 //Add quota
                 $bSucces = $this->objSystemInterface->addUser_quotas($sUserName, $iUserMemoryInMB);
                 if($bSucces != true) {
-                    $this->addUser_cleanAF(self::QUOTAS_CONFIG, $sUserName);
+                    $this->addUser_cleanAF(self::QUOTAS_CONFIG, $sUserName, $iJobId);
                     return false;
                 }
                 
                 //Reload Apache
                 $bSucces = $this->objSystemInterface->addUser_apache_reload();
                 if($bSucces != true) {
-                    $this->addUser_cleanAF(self::APACHE_RELOAD, $sUserName);
+                    $this->addUser_cleanAF(self::APACHE_RELOAD, $sUserName, $iJobId);
                     return false;
                 }
             }
@@ -196,14 +209,15 @@
             $sJobMessage = "";
             
             foreach($objSqlResult as $objRow) {
-                $sJobType = objRow['jobtype'];
+                $sJobType = $objRow['jobtype'];
                 
                 if($sJobType == self::ADDUSER) {
                     //Get parameters for the adduser job
-                    $sUserName = objRow['username'];
-                    $sUserPass = objRow['password_enc'];
-                    $iJobId = objRow['jobid'];
-                    $iUserSpace = objRow['userspace'];
+                    $sUserName = $objRow['username'];
+                    $sUserPassEnc = $objRow['password_enc'];
+		    $sUserPass = Security::cryptopass($sUserPassEnc, Security::DECRYPT);
+                    $iJobId = $objRow['jobid'];
+                    $iUserSpace = $objRow['userspace'];
                     
                     //Call the adduser method
                     $bAddSuccess = $this->addUser($sUserName, $sUserPass, $iJobId, $iUserSpace);

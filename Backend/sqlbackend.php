@@ -30,6 +30,8 @@
                 $iRowsFound = $objResult->rowCount();
             }
             catch(PDOException $ex) {
+		$sExMessage = $ex->getMessage();
+                Logger::debugmsg("SQL Exception: ${sExMessage}");
                 throw $ex;
             }
             
@@ -51,7 +53,8 @@
                 }
             }
             catch(PDOException $ex) {
-                Logger::debugmsg("SQL Exception");
+                $sExMessage = $ex->getMessage();
+                Logger::debugmsg("SQL Exception: ${sExMessage}");
                 throw $ex;
             }
         }
@@ -72,6 +75,8 @@
                 return $objResult;
             }
             catch(PDOException $ex) {
+		$sExMessage = $ex->getMessage();
+                Logger::debugmsg("SQL Exception: ${sExMessage}");
                 throw $ex;
             }
         }
