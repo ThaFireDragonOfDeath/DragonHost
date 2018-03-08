@@ -194,8 +194,7 @@
         public function setJobState(int $iJobId, int $iState, string $sStateMessage) {
             Logger::debugmsg('Begin setJobState()');
             
-            //TODO Repair this SQL statement
-            $sSqlQuery = "UPDATE jobs SET password_enc = '',jobstate = :jobstate,jobmessage = :statemsg WHERE jobid = :jobid;";
+            $sSqlQuery = "UPDATE jobs JOIN jobs_user ON jobs.jobid = jobs_user.jobid SET jobs_user.password_enc = '',jobs.jobstate = :jobstate,jobs.jobmessage = :statemsg WHERE jobs.jobid = :jobid;";
             $slSqlParameters = array(
                 ':jobstate' => $iState,
                 ':jobid' => $iJobId,
