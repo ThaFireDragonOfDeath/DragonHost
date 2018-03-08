@@ -5,7 +5,7 @@ System:
 4. Quota wie unten beschrieben einrichten
 5. Datenbank anlegen: mysql_install_db --user=mysql --basedir=/usr --datadir=/srv/dragonhost/database
 6. Projekteinstellungen durch bearbeiten der folgenden Datei setzen: /srv/dragonhost/framework/projectconfigs.php
-6. Mariadb via systemctl enablen und starten
+6. Mariadb via systemctl enablen und starten: systemctl enable/start mariadb
 7. Datenbank wie unten beschrieben einrichten
 8. DH Cronservice enablen und starten: systemctl enable/start Dh_Cronscript
 9. Apache service enablen und starten: systemctl enable/start apache2
@@ -13,9 +13,10 @@ System:
 
 Quota einrichten:
 1. Quatas zu fstab hinzufügen: usrquota zu den fstab optionen der Partition, wo /srv liegt, hinzufügen und anschließend das System neu starten
-2. Quota Dateien erstellen: quotacheck -a
-3. Quota neustarten: systemctl restart quota
-4. Quota funktionalität überprüfen: repquota -a
+2. Beim RasPi: ln -s /dev/mmcblk0p2 /dev/root
+3. Quota Dateien erstellen: quotacheck -a (beim RasPi zusätzlich: -m)
+4. Quota neustarten: systemctl restart quota
+5. Quota funktionalität überprüfen: repquota -a
 Weitere Informationen zu Quota: https://wiki.ubuntuusers.de/Quota/
 
 Datenbank einrichten:

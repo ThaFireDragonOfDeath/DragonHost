@@ -245,6 +245,7 @@
                     else {
                         $iJobState = 1;
                         $sJobMessage = "Failed";
+			$objDbInterface->delUser($sUserName);
                     }
                     
                     $objDbInterface->setJobState($iJobId, $iJobState, $sJobMessage);
