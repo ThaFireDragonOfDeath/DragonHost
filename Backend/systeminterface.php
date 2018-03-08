@@ -25,11 +25,11 @@
         
         //Functions
         public function addUser_apache_reload() {
-            $slShellCommand = "systemctl reload apache2";
+            $sShellCommand = "systemctl reload apache2";
             
             $slOutputs = null;
             $iShellReturn = -1;
-            exec($sCurrentCommand, $slOutputs, $iShellReturn);
+            exec($sShellCommand, $slOutputs, $iShellReturn);
         
             if($iShellReturn != 0) {
                 return false;
@@ -51,12 +51,14 @@
                 return false;
             }
             
-            $sConfigContent = file_get_contents($apache_template_path);
-            str_replace(":sUserName", $sUserName, $sConfigContent);
+            $sConfigTemplateContent = file_get_contents($apache_template_path);
+            $sConfigContent = str_replace(":UserName", $sUserName, $sConfigTemplateContent);
             
             $sSaveConfigFileName = "${sUserName}_config.conf";
-            $sSaveConfigFilePath = $apache_config_path."/".$sSaveConfigFileName;
+            $sSaveConfigFilePath = $apache_config_path . "/" . $sSaveConfigFileName;
             
+	    Logger::debugmsg("Writing config file: $sSaveConfigFilePath");
+
             $bWriteCheck = file_put_contents($sSaveConfigFilePath, $sConfigContent);
             
             if($bWriteCheck === false) {
@@ -103,7 +105,9 @@
                 0 => "useradd -d /srv/dragonhost/users/${sUserName} -g webspace_user -m -s /bin/false ${sUserName}",
                 1 => "echo \"${sUserName}:${sUserPass}\" | chpasswd",
                 2 => "mkdir /srv/dragonhost/users/${sUserName}/www",
-                3 => "chmod -R 660 /srv/dragonhost/users/${sUserName}",
+                3 => "chmod -R 550 /srv/dragonhost/users/${sUserName}",
+		4 => "chown -R ${sUserName}:webspace_user /srv/dragonhost/users/${sUserName}",
+		5 => "chmod -R 750 /srv/dragonhost/users/${sUserName}/www",
             );
             
             foreach($slShellCommands as $sCurrentCommand) {
@@ -204,7 +208,7 @@
         
         public function delUser_config_apache($sUserName): bool {
             $sSaveConfigFileName = "${sUserName}_config.conf";
-            $sSaveConfigFilePath = $this->apache_config_path & "/" & $sSaveConfigFileName;
+            $sSaveConfigFilePath = ProjectConfigs::apache_config_path . "/" . $sSaveConfigFileName;
             $bUserExist = is_readable($sSaveConfigFilePath);
             
             if ($bUserExist == true) {
@@ -283,9 +287,9 @@
             }
         }
         
-        public function setquotas(string $sUsername, int $iUserSpaceInMB) {
+        public function setquotas(string $sUserName, int $iUserSpaceInMB) {
             $iUserSpaceInBlocks = $iUserSpaceInMB * 1024;
-            $sShellCommand = "setquota -u ${sUserName} 0 ${iUserSpaceInBlocks} 0 0";
+            $sShellCommand = "setquota -u ${sUserName} 0 ${iUserSpaceInBlocks} 0 0 -a";
             $slOutputs = null;
             $iShellReturn = -1;
             exec($sShellCommand, $slOutputs, $iShellReturn);

@@ -9,6 +9,7 @@ System:
 7. Datenbank wie unten beschrieben einrichten
 8. DH Cronservice enablen und starten: systemctl enable/start Dh_Cronscript
 9. Apache service enablen und starten: systemctl enable/start apache2
+10. VSFTPD Service enablen und starten: systemctl enable/start vsftpd
 
 Quota einrichten:
 1. Quatas zu fstab hinzufügen: usrquota zu den fstab optionen der Partition, wo /srv liegt, hinzufügen und anschließend das System neu starten

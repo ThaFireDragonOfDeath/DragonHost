@@ -23,7 +23,7 @@
             } else {
                 $iCurrentUsers = $objDbInterface->countUsers();
                 
-                if ($iCurrentUsers <= ProjectConfigs::user_limit) {
+                if ($iCurrentUsers <= ProjectConfigs::user_limit || ProjectConfigs::user_limit == 0) {
                     $objDbInterface->addUser($sUsername, $sPassword, ProjectConfigs::user_space);
                     $objDbInterface->addJob(DbInterface::ADDUSER, $sUsername, $sPassword);
                     echo "User wurde angelegt und wird in wenigen Minuten eingerichtet.";
@@ -38,7 +38,8 @@
             if (!$bAccExists || !$bLoginCheck) {
                 echo "Benutzername und/oder Passwort ist falsch!";
             } else {
-                //TODO
+                $objDbInterface->addJob(DbInterface::DELUSER, $sUsername, $sPassword);
+		echo "Der Benutzer wurde zum Löschen markiert und wird in wenigen Minuten vollständig vom System entfernt.";
             }
         }
     }

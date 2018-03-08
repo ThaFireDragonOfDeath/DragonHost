@@ -119,6 +119,14 @@
             $sSqlQuery = "SELECT * FROM users";
             return $this->countSqlResults($sSqlQuery);
         }
+
+	public function delUser(string $sUserName) {
+            $sSqlQuery = "DELETE FROM users WHERE username = :usrname";
+            $slSqlParameters = array(
+                ':usrname' => $sUserName,
+            );
+            return $this->doSqlQuery($sSqlQuery, $slSqlParameters);
+        }
         
         protected function doSqlQuery(string $sSqlQuery, $slBindings = null) {
             try {
@@ -133,7 +141,7 @@
     
         public function getJobsFromDb() {
             //Generate SQL Query text
-            $sSqlQuery = 'SELECT * FROM jobs JOIN jobs_user ON jobs.jobid = jobs_user.jobid JOIN users ON jobs_user.userid = users.userid;';
+            $sSqlQuery = 'SELECT * FROM jobs JOIN jobs_user ON jobs.jobid = jobs_user.jobid JOIN users ON jobs_user.userid = users.userid WHERE jobs.jobstate = -1;';
             $objSqlResult = null;
             
             try {

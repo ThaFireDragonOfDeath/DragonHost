@@ -12,7 +12,6 @@ Userstates:
 -1 = Noch nich eingerichtet
 0 = Erfolgreich Eingerichtet
 1 = Einrichtung fehlgeschlagen
-2 = User gelöscht
 
 SCRIPT_CONTEXT:
 0 = Frontend

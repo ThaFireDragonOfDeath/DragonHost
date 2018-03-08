@@ -25,6 +25,7 @@
         
         //Job types
         const ADDUSER = 1;
+	const DELUSER = 2;
         
         private $objSystemInterface;
     
@@ -125,6 +126,8 @@
         public function addUser_cleanAF(int $iFailPoint, string $sUserName, int $iJobid) {
             Logger::debugmsg('Begin addUser_cleanAF()');
         
+	    $bReturnValue = true;
+
             //If failed in quota part or higher
             if ($iFailPoint >= self::QUOTAS_CONFIG) {
                 $bUserStillExist = $this->objSystemInterface->checkUserExists_quotas($sUserName);
@@ -133,6 +136,7 @@
                     if($this->objSystemInterface->delUser_quotas($sUserName) == FALSE) {
                         //Send notofication to the sysadmin
                         Logger::sendMaintenance($iJobid, "Remove quotas from user \"${sUserName}\" by hand!");
+			$bReturnValue = false;
                     }
                 }
             }
@@ -145,6 +149,7 @@
                     if($this->objSystemInterface->delUser_config_apache_enable($sUserName) == FALSE) {
                         //Send notofication to the sysadmin
                         Logger::sendMaintenance($iJobid, "Disable the site from user \"${sUserName}\" by hand!");
+			$bReturnValue = false;
                     }
                 }
             }
@@ -157,6 +162,7 @@
                     if($this->objSystemInterface->delUser_config_apache($sUserName) == FALSE) {
                         //Send notofication to the sysadmin
                         Logger::sendMaintenance($iJobid, "Remove the apache config from user \"${sUserName}\" by hand!");
+			$bReturnValue = false;
                     }
                 }
             }
@@ -169,6 +175,7 @@
                     if($this->objSystemInterface->delUser_database_user($sUserName) == FALSE) {
                         //Send notofication to the sysadmin
                         Logger::sendMaintenance($iJobid, "Remove the database user \"${sUserName}\" by hand!");
+			$bReturnValue = false;
                     }
                 }
             }
@@ -181,6 +188,7 @@
                     if($this->objSystemInterface->delUser_database_db($sUserName) == FALSE) {
                         //Send notofication to the sysadmin
                         Logger::sendMaintenance($iJobid, "Remove the database \"${sUserName}\" by hand!");
+			$bReturnValue = false;
                     }
                 }
             }
@@ -195,11 +203,19 @@
                     if($this->objSystemInterface->deluser_passwd($sUserName) == FALSE) {
                         //Send notofication to the sysadmin
                         Logger::sendMaintenance($iJobid, "Remove the user \"${sUserName}\" from passwd by hand!");
+			$bReturnValue = false;
                     }
                 }
             }
+
+	    return $bReturnValue;
         }
     
+	function delUser(string $sUserName, int $iJobId) {
+	    $bDelSuccess = $this->addUser_cleanAF(self::QUOTAS_CONFIG, $sUserName, $iJobId);
+	    return $bDelSuccess;
+	}
+
         function execJobsFromDb() {
             Logger::debugmsg('Begin execJobsFromDb()');
             
@@ -233,6 +249,26 @@
                     
                     $objDbInterface->setJobState($iJobId, $iJobState, $sJobMessage);
                 }
+		else if($sJobType == self::DELUSER) {
+		    //Get parameters for the deluser job
+                    $sUserName = $objRow['username'];
+		    $iJobId = $objRow['jobid'];
+
+		    //Call the deluser method
+                    $bDelSuccess = $this->delUser($sUserName, $iJobId);
+                    
+                    if ($bDelSuccess === true) {
+                        $iJobState = 0;
+                        $sJobMessage = "Success";
+			$objDbInterface->delUser($sUserName);
+                    }
+                    else {
+                        $iJobState = 1;
+                        $sJobMessage = "Failed";
+                    }
+                    
+                    $objDbInterface->setJobState($iJobId, $iJobState, $sJobMessage);
+		}
             }
         }
     }

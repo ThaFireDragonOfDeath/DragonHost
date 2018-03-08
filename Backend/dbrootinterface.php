@@ -77,7 +77,8 @@
             return $this->doSqlQuery($sSqlCommand);
         }
         
-        public function deletedbuser(string $sDbUserName, string $sDbHost): bool {
+        public function deletedbuser(string $sDbUserName): bool {
+	    $sDbHost = ProjectConfigs::db_host;
             $sSqlCommand = "DROP USER '${sDbUserName}'@'${sDbHost}';";
             
             return $this->doSqlQuery($sSqlCommand);

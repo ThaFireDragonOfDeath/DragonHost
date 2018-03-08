@@ -3,9 +3,9 @@
 
     class ProjectConfigs {
         //File paths
-        const apache_template_path = "/srv/dragonhost/config/apache/usersite-template.conf";
-        const apache_config_path = "/etc/apache2/conf-available";
-        const apache_enabled_config_path = "/etc/apache2/conf-enabled";
+        const apache_template_path = "/srv/dragonhost/config/apache/usersite_template.conf";
+        const apache_config_path = "/etc/apache2/sites-available";
+        const apache_enabled_config_path = "/etc/apache2/sites-enabled";
         const frontend_critical_log_path = "";
         const backend_critical_log_path = "";
         
