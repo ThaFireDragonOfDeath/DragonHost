@@ -23,6 +23,7 @@ cp -f ../../Config/apache/apache2.conf /etc/apache2
 cp -f ../../Config/ftp/vsftpd.conf /etc
 cp -f ../../Config/mariadb/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 cp -f ../../Config/apache/usersite_template.conf /srv/dragonhost/config/apache
+cp -f ../../Config/php/cli/php.ini /srv/dragonhost/config/php/cli/php.ini
 
 # Copy frontend site files
 cp -f ../../Webfrontend/account.php /srv/dragonhost/frontend/www
