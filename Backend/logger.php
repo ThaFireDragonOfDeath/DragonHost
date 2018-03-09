@@ -7,16 +7,14 @@
     class Logger {
         const FRONTEND = 0;
         const BACKEND = 1;
-        
-        //private static $iLogContext = -1;
     
         public static function critical_logmsg(string $sMessage) {
             $sLogPath = '';
             
-            if (self::$iLogContext === self::FRONTEND) {
+            if (SCRIPT_CONTEXT === self::FRONTEND) {
                 $sLogPath = ProjectConfigs::frontend_critical_log_path;
             }
-            elseif (self::$iLogContext === self::BACKEND) {
+            elseif (SCRIPT_CONTEXT === self::BACKEND) {
                 $sLogPath = ProjectConfigs::backend_critical_log_path;
             }
             

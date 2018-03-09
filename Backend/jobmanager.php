@@ -116,6 +116,8 @@
                     $this->addUser_cleanAF(self::APACHE_RELOAD, $sUserName, $iJobId);
                     return false;
                 }
+
+		return true;
             }
             else {
                 Logger::logmsg("Adduser: Error in username ('${sUserName}') or password!");
